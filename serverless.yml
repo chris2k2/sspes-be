@@ -1,0 +1,50 @@
+service: backend
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: java11
+  stage: dev
+  region: eu-north-1
+  layers:
+    - arn:aws:lambda:eu-north-1:261784908038:layer:layerOne:6
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:eu-north-1:*:*"
+    - Effect: 'Allow'
+      Action:
+        - 'lambda:InvokeFunction'
+      Resource: "*"
+
+
+# you can add packaging information here
+package:
+  artifact: target/backend-prod.jar
+
+functions:
+  getranking:
+    handler: de.cweyermann.ssps.backend.GetRanking
+    timeout: 45
+    events:
+      - http:
+          path: ranking
+          method: get
+          cors: true
+  callmatch:
+    handler: de.cweyermann.ssps.backend.CallMatch
+    timeout: 45
+    events:
+      - schedule: rate(2 minutes)
+  chrisbot:
+    handler: de.cweyermann.ssps.backend.ChrisBot
+    warmup: false
+    events:
+      - http:
+          path: chrisbot
+          method: get
+          cors: true
+
+plugins:
+  - serverless-plugin-warmup
