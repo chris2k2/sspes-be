@@ -14,11 +14,10 @@ public class CallMatch implements RequestHandler<Map<String, Object>, Void> {
     public Void handleRequest(Map<String, Object> stringObjectMap, Context context) {
         de.cweyermann.ssps.backend.logic.CallMatch callMatch = new de.cweyermann.ssps.backend.logic.CallMatch(new Repository());
 
-        for (int i = 0; i < 1; i++) {
+        System.out.println("Starting CallMatch");
+        for (int i = 0; i < 5; i++) {
             callMatch.letsPlay();
         }
-
-        new SayHello().sayIt();
 
         return null;
     }

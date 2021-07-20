@@ -15,6 +15,7 @@ public class BffResult {
     public static class Ranking {
         private int position;
         private String name;
+        private String fullname;
 
         private double winningPercentage;
 

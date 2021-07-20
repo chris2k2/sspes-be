@@ -1,6 +1,5 @@
 package de.cweyermann.ssps.backend.logic;
 
-import de.cweyermann.ssps.backend.ChrisBot;
 import de.cweyermann.ssps.backend.repo.Match;
 import de.cweyermann.ssps.backend.repo.Participant;
 import de.cweyermann.ssps.backend.repo.Repository;
@@ -14,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class CallMatch {

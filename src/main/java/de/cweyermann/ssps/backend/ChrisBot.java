@@ -14,9 +14,14 @@ import java.util.*;
 public class ChrisBot implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
+
+        List<String> list = Arrays.asList("Schere", "Stein", "Papier", "Echse", "Spock");
+        Collections.shuffle(list);
+
+
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)
-                .setObjectBody("a random result")
+                .setObjectBody(list.get(3))
                 .build();
     }
 }

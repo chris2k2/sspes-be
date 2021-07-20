@@ -28,4 +28,5 @@ public class Repository {
     public void saveParticipant(Participant participant) {
         DynamoDb.mapper.save(participant);
     }
+
 }

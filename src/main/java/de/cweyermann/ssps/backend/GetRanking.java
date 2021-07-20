@@ -24,9 +24,10 @@ public class GetRanking implements RequestHandler<Map<String, Object>, ApiGatewa
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		LOG.info("received: {}", input);
 
+		Repository repo = new Repository();
 		BffResult result = new BffResult();
-		result.matches = new GetAllMatches(new Repository()).allFromDb();
-		result.ranking = new CalcRanking().fromMatches(result.matches);
+		result.matches = new GetAllMatches(repo).allFromDb();
+		result.ranking = new CalcRanking(repo).fromMatches(result.matches);
 
 
 		Map<String, String> headers = new HashMap<>();

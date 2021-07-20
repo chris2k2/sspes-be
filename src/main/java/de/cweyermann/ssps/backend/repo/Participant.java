@@ -15,4 +15,6 @@ public class Participant {
 
     private String lastChoice;
 
+    private String fullname;
+
 }

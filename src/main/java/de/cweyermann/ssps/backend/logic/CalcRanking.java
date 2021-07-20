@@ -1,12 +1,19 @@
 package de.cweyermann.ssps.backend.logic;
 
 import de.cweyermann.ssps.backend.dtos.BffResult;
+import de.cweyermann.ssps.backend.repo.Participant;
+import de.cweyermann.ssps.backend.repo.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CalcRanking {
 
+    private final List<Participant> allParticipants;
+
+    public CalcRanking(Repository repo) {
+        allParticipants = repo.getAllParticipants();
+    }
 
     public List<BffResult.Ranking> fromMatches(List<BffResult.Match> matches) {
         Map<String, BffResult.Ranking> name2Ranking = new HashMap<>();
@@ -48,11 +55,21 @@ public class CalcRanking {
         if (!name2Ranking.containsKey(teamName)) {
             BffResult.Ranking ranking = new BffResult.Ranking();
             ranking.setName(teamName);
+            ranking.setFullname(getFullnameForTeamname(teamName));
             ranking.setWon(0);
             ranking.setLost(0);
             ranking.setDraw(0);
 
             name2Ranking.put(teamName, ranking);
         }
+    }
+
+    private String getFullnameForTeamname(String teamname) {
+        return allParticipants
+                .stream()
+                .filter(p -> p.getName().equalsIgnoreCase(teamname))
+                .map(Participant::getFullname)
+                .findFirst()
+                .orElse("unbekannt");
     }
 }
